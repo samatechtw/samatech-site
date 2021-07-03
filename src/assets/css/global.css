@@ -1,0 +1,100 @@
+$dark1: #191716;
+$dark2: #252627;
+$light1: #fbfbff;
+$light2: #dddde7;
+$blue: #58a4b0;
+$purple: #7353ba;
+$red: #ef233c;
+$green: #5ef38c;
+$border1: #444e5f;
+
+@define-mixin flex-center {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+@define-mixin flex-center-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+@define-mixin title $size {
+  font-family: Verdana, sans-serif;
+  font-weight: 700;
+  font-size: $size;
+}
+
+@define-mixin semibold $size {
+  font-family: Verdana, sans-serif;
+  font-weight: 600;
+  font-size: $size;
+}
+
+@define-mixin medium $size {
+  font-family: Verdana, sans-serif;
+  font-weight: 500;
+  font-size: $size;
+}
+
+@define-mixin light $size {
+  font-family: sans-serif;
+  font-weight: 300;
+  font-size: $size;
+}
+
+@define-mixin text $size {
+  font-family: Garamond, Georgia, serif;
+  font-weight: 400;
+  font-size: $size;
+}
+
+@define-mixin text-italic $size {
+  font-family: Garamond, Georgia, serif;
+  font-weight: 400;
+  font-style: italic;
+  font-size: $size;
+}
+
+@define-mixin section-title {
+  @mixin semibold 30px;
+  color: $light1;
+  text-align: center;
+  letter-spacing: 1.8px;
+}
+
+@define-mixin fancy-underline {
+  margin: 0 auto;
+  padding: 0;
+  transition: all 0.2s ease-in-out;
+  position: relative;
+  &:before,
+  &:after {
+    content: "";
+    position: absolute;
+    bottom: -1px;
+    width: 0px;
+    height: 3px;
+    margin: 5px 0 0;
+    transition: all 0.2s ease-in-out;
+    transition-duration: 0.5s;
+    opacity: 0;
+    background-color: $blue;
+  }
+  &:before {
+    left: 50%;
+  }
+  &:after {
+    right: 50%;
+  }
+  &.selected {
+    &:before,
+    &:after {
+      width: 50%;
+      opacity: 1;
+    }
+  }
+}
