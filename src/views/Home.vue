@@ -1,10 +1,10 @@
 <template>
 <div class="home-wrap">
-  <STHeader :activeSection="sectionId" />
-  <About ref="about" :selected="sectionId === 'about'" />
-  <Services ref="services" :selected="sectionId === 'services'" />
-  <Technology ref="technology" :selected="sectionId === 'technology'" />
-  <Contact ref="contact" :selected="sectionId === 'contact'" />
+  <STHeader :activeSection="activeSection" />
+  <About ref="about" :selected="activeSection === 'about'" />
+  <Services ref="services" :selected="activeSection === 'services'" />
+  <Technology ref="technology" :selected="activeSection === 'technology'" />
+  <Contact ref="contact" :selected="activeSection === 'contact'" />
   <STFooter />
 </div>
 </template>
@@ -20,7 +20,7 @@ export default {
     const services = ref(null);
     const technology = ref(null);
     const contact = ref(null);
-    let sections = [about, services, technology, contact];
+    let sections = [contact, technology, services, about];
     let onScrollDebounce = null;
 
     const onScroll = () => {
@@ -33,13 +33,15 @@ export default {
           return true;
         }
       });
-      if(section !== activeSection.value) {
-        activeSection.value = section.value;
+      if(!section) {
+        activeSection.value = null;
+      } else {
+        const sid = section.value.$el.id;
+        if(sid!== activeSection.value) {
+          activeSection.value = sid;
+        }
       }
     };
-    const sectionId = computed(() => (
-      activeSection.value ? activeSection.value.$el.id : null
-    ));
 
     onMounted(() => {
       onScrollDebounce = debounce(onScroll, 100);
@@ -50,7 +52,6 @@ export default {
     });
     return {
       activeSection,
-      sectionId,
       about,
       services,
       technology,
@@ -65,9 +66,6 @@ export default {
 
 .section-title {
   @mixin section-title;
-  > span {
-    @mixin fancy-underline;
-  }
 }
 
 .home-wrap {

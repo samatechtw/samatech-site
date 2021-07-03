@@ -13,7 +13,7 @@
     "lint:style": "./node_modules/stylelint/bin/stylelint.js \"**/src/**/*.{css,vue}\""
   },
   "dependencies": {
-    "@sampullman/fetch-api": "link:../../personal/fetch-api",
+    "@sampullman/fetch-api": "0.4.0",
     "vue": "^3.1.2",
     "vue-i18n": "^9.1.6",
     "vue-router": "^4.0.10"
@@ -29,6 +29,7 @@
     "postcss": "^8.3.5",
     "stylelint": "^13.13.1",
     "stylelint-config-standard": "^22.0.0",
+    "tslib": "^2.3.0",
     "vite": "^2.3.8",
     "vite-plugin-components": "^0.11.3",
     "vite-plugin-vue-images": "^0.6.1"
