@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@sampullman/fetch-api": "0.4.0",
-    "vue": "^3.1.2",
+    "vue": "^3.1.4",
     "vue-i18n": "^9.1.6",
     "vue-router": "^4.0.10"
   },
@@ -22,16 +22,16 @@
     "@intlify/eslint-plugin-vue-i18n": "^0.11.1",
     "@samatech/postcss-basics": "^0.2.0",
     "@vitejs/plugin-vue": "^1.2.4",
-    "@vue/compiler-sfc": "^3.1.2",
-    "eslint": "^7.29.0",
+    "@vue/compiler-sfc": "^3.1.4",
+    "eslint": "^7.30.0",
     "eslint-plugin-import": "^2.23.4",
-    "eslint-plugin-vue": "^7.12.1",
+    "eslint-plugin-vue": "^7.13.0",
     "postcss": "^8.3.5",
     "stylelint": "^13.13.1",
     "stylelint-config-standard": "^22.0.0",
     "tslib": "^2.3.0",
-    "vite": "^2.3.8",
-    "vite-plugin-components": "^0.11.3",
+    "vite": "^2.4.1",
+    "vite-plugin-components": "^0.12.2",
     "vite-plugin-vue-images": "^0.6.1"
   }
 }
