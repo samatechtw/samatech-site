@@ -6,7 +6,7 @@
   <div class="footer container">
     <div class="footer-left">
       <div class="footer-image">
-        <img :src="Logo">
+        <img :src="LogoBlack">
       </div>
       <div class="footer-left-text">
         <div class="footer-company">

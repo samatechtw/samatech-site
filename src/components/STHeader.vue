@@ -6,7 +6,7 @@
   >
     <div class="container">
       <div class="header-left">
-        <img :src="Logo" @click="scroll(0)">
+        <img :src="LogoBlack" @click="scroll(0)">
       </div>
       <HeaderLinks
         class="header-right"
@@ -192,10 +192,10 @@ export default {
   }
   .header-left {
     @mixin flex-center;
-    padding-top: 6px;
+    height: 100%;
     img {
-      height: 40px;
       cursor: pointer;
+      height: 60%;
     }
   }
   @media (max-width: 640px) {

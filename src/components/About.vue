@@ -2,11 +2,7 @@
 <div id="about" class="about-wrap">
   <div class="about-bg" />
   <div class="about container">
-    <div class="about-title">
-      <span :class="{ selected }">
-        {{ $t('company') }}
-      </span>
-    </div>
+    <img :src="Company" class="about-title">
     <div class="about-text">
       {{ $t('about.text') }}
     </div>
@@ -51,7 +47,7 @@ export default {
     color: $light1;
   }
   .about-title {
-    @mixin title 48px;
+    width: 320px;
     margin-left: 50%;
   }
   .about-text {
@@ -65,15 +61,19 @@ export default {
   @media (max-width: 600px) {
     display: flex;
     justify-content: flex-end;
+    text-align: right;
     .about-bg {
       background-position: 22% 10%;
     }
     .about-title, .about-text {
       margin-left: 0;
-      text-align: right;
+    }
+    .about-title {
+      width: 260px;
     }
     .about-text {
       margin-left: auto;
+      max-width: 280px;
     }
   }
 }
