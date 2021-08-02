@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import { ref, computed, onMounted, onUnmounted } from 'vue';
+import { ref, onMounted, onUnmounted } from 'vue';
 import { debounce } from '/src/utils';
 
 export default {
@@ -37,7 +37,7 @@ export default {
         activeSection.value = null;
       } else {
         const sid = section.value.$el.id;
-        if(sid!== activeSection.value) {
+        if(sid !== activeSection.value) {
           activeSection.value = sid;
         }
       }

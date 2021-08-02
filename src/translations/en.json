@@ -61,6 +61,88 @@
     "email_success": "Message sent successfully",
     "email_limit": "Message rate limit exceeded, try again in a few minutes."
   },
+  "careers": {
+    "title": "Careers",
+    "head": "SamaTech Careers",
+    "text": "",
+    "apply": "Apply",
+    "requirements": "Requirements",
+    "responsibilities": "Responsibilities",
+    "jobs": [
+      {
+        "title": "Frontend Developer",
+        "description": "Responsibilities include implementation of various project frontends, widget toolkits, and developing interfaces for administration of client websites and internal micro-services. The developer will work closely with designers to help produce elegant user experiences. Most projects are done in Vue3 or React, using modern javascript (ES Modules), Typescript and PostCSS/SCSS.",
+        "responsibilities": [
+          "Use Javascript and Typescript with Vue3 to build complex web applications",
+          "Write responsive CSS using PostCSS",
+          "Contribute unit and integration tests to maintain a high quality code base",
+          "Prototype new projects and work on internal tools"
+        ],
+        "requirements": [
+          "2+ years developing complex web front-ends",
+          "Proficient with modern software development tools (bundlers, linting, CI/CD, etc)",
+          "2+ years with at least one modern web application framework (React or Vue preferred)",
+          "Strong understanding of application architecture, scalability, and web security"
+        ],
+        "link": "https://www.cakeresume.com/companies/samatech/jobs/frontend-developer-4adf8b"
+      },
+      {
+        "title": "Tech Lead",
+        "description": "Your primary duties include breaking down product requirements into detailed development plans, and managing the engineering team a day to day basis, while filling in gaps in development as needed. You'll also assist with hiring engineering talent, including filtering candidates and interviewing. The Tech Lead is responsible for final code review, developer resource allocation, and interfacing with other project teams.<br><br>It's useful, but not required, to have previous experience with the Ethereum ecosystem and modern web development frameworks such as VueJS and NestJS.",
+        "responsibilities": [
+          "Assist with developer hiring process",
+          "Day to day engineering team management",
+          "Technical code review",
+          "Convert product requirements and designs to engineering tasks",
+          "Identify and proposing improvements to software development, testing, and deployment processes",
+          "Short and long term planning to meet project deadlines",
+          "Maintain collaboration, urgency, and enthusiasm among employees"
+        ],
+        "requirements": [
+          "Degree in Computer Science, related technical field, or equivalent experience",
+          "Fluent in Mandarin, proficient in English",
+          "3 years of experience in Software Engineering, Product Management, or Technical Program Management",
+          "Experience building deliverables across the different phases of the Software Development Lifecycle",
+          "Experience building APIs and managing technical integrations through APIs"
+        ],
+        "link": "https://www.cakeresume.com/companies/samatech/jobs/tech-lead-801a00"
+      },
+      {
+        "title": "Backend Developer",
+        "description": "Responsibilities include backend development for various projects, improving testing and deployment strategies, and directing application architecture of new services. Must have experience with authentication, API development, and databases. The role involves close collaboration with front-end, DevOps, and blockchain developers.",
+        "responsibilities": [
+          "Contributing to multiple internal and client projects",
+          "Create robust REST APIs for consumption by mobile and web clients",
+          "Maintenance and testing to ensure a high quality code base",
+          "Prototyping and integrating new technologies"
+        ],
+        "requirements": [
+          "2+ years working on complex web backends using Javascript or Typescript",
+          "Proficient with modern software development tools",
+          "2+ years writing NodeJS or Python backend applications",
+          "Strong understanding of application architecture, scalability, and web security"
+        ],
+        "link": "https://www.cakeresume.com/companies/samatech/jobs/backend-developer-eaabb1"
+      },
+      {
+        "title": "Blockchain Developer",
+        "description": "Duties include developing and testing smart contracts, managing deployment strategies, and assisting with backend integrations. Additionally, the blockchain developer will guide blockchain related technology decisions, prototype new ideas, and work closely with front and back-end developers to complete internal and client projects.<br><br>To apply for this position, please reach out via <a href=\"mailto:contact@samatec.tw.com?subject=Blockchain Jobs\" target=\"_blank\">contact@samatech.tw</a>, <a href=\"https://www.cakeresume.com/companies/samatech\" target=\"_blank\">CakeResume</a>, or our <a href=\"https://samatech.tw/#contact\">Contact</a> page.",
+        "responsibilities": [
+          "Research, design, develop, and test smart contracts, and other blockchain related technologies",
+          "Assist in building applications that interact with the blockchain",
+          "Keep up with the latest developments in the blockchain community",
+          "Evaluate applications of new tools and technologies as they evolve"
+        ],
+        "requirements": [
+          "1+ years developing smart contracts (or able to show significant smart contract related work)",
+          "2+ years experience in another area of software development",
+          "Proficient with modern software development tools",
+          "Strong understanding of application architecture, scalability, and security"
+        ],
+        "link": ""
+      }
+    ]
+  },
   "footer": {
     "copyright": "© 2021 SamaTech Co., Ltd.",
     "rights": "All Rights Reserved."

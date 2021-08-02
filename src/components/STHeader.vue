@@ -52,7 +52,7 @@
 
 <script>
 import { computed, onMounted, onUnmounted, ref, toRefs } from 'vue';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import { scroll, scrollAnchor } from '/src/utils';
 
 const MIN_HEIGHT = 68;
@@ -75,11 +75,23 @@ export default {
   setup(props) {
     const { activeSection } = toRefs(props);
     const route = useRoute();
+    const router = useRouter();
+
+    const homeLink = (id) => {
+      const scrollOrGo = (id) => {
+        if(route.name === 'Home') {
+          scrollAnchor(id);
+        } else {
+          router.push({ name: 'Home', hash: `#${id}` });
+        }
+      };
+      return link(id, scrollOrGo);
+    };
     const headerLinks = [
-      link('about', scrollAnchor),
-      link('services', scrollAnchor),
-      link('technology', scrollAnchor),
-      link('contact', scrollAnchor),
+      homeLink('services'),
+      homeLink('technology'),
+      homeLink('contact'),
+      link('careers', () => router.push({ name: 'Careers' })),
     ];
     const sidebarOpened = ref(false);
     const headerHeight = ref(100);
@@ -87,12 +99,15 @@ export default {
 
     const calculateUnderline = (link) => {
       const el = document.getElementById(link.headerId);
-      const size = el.getBoundingClientRect();
-      return {
-        ...link,
-        width: `${size.width}px`,
-        left: `${el.offsetLeft}px`,
-      };
+      if(el) {
+        const size = el.getBoundingClientRect();
+        return {
+          ...link,
+          width: `${size.width}px`,
+          left: `${el.offsetLeft}px`,
+        };
+      }
+      return null;
     };
 
     const activeLink = computed(() => {
@@ -116,14 +131,18 @@ export default {
     };
 
     const logoClick = () => {
-      if(!spin.value && route.name === 'Home') {
-        spin.value = true;
-        setTimeout(
-          () => { spin.value = false; },
-          1200,
-        );
+      if(route.name !== 'Home') {
+        router.push({ name: 'Home' });
+      } else {
+        if(!spin.value) {
+          spin.value = true;
+          setTimeout(
+            () => { spin.value = false; },
+            1200,
+          );
+        }
+        scroll(0);
       }
-      scroll(0);
     };
 
     onMounted(() => {
