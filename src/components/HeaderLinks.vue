@@ -75,7 +75,7 @@ export default {
     color: $blue;
     text-decoration: none;
     transition: all 0.3s ease;
-    @mixin semibold 14px;
+    @mixin medium 15px;
     &:hover {
       opacity: 0.7;
       text-shadow: 0 0 1px rgba(0, 0, 0, 0.5);

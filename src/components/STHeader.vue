@@ -6,7 +6,11 @@
   >
     <div class="container">
       <div class="header-left">
-        <img :src="LogoBlack" @click="scroll(0)">
+        <img
+          :src="LogoBlack"
+          :class="{ spin }"
+          @click="logoClick"
+        >
       </div>
       <HeaderLinks
         class="header-right"
@@ -32,13 +36,13 @@
             color="black"
             @click="sidebarOpened = false"
           />
-            <HeaderLinks
-              class="header-links-mobile"
-              :links="headerLinks"
-              :activeLink="activeLink"
-              :activeSection="activeSection"
-              @linkClick="sidebarOpened = false"
-            />
+          <HeaderLinks
+            class="header-links-mobile"
+            :links="headerLinks"
+            :activeLink="activeLink"
+            :activeSection="activeSection"
+            @linkClick="sidebarOpened = false"
+          />
         </div>
       </div>
     </div>
@@ -48,6 +52,7 @@
 
 <script>
 import { computed, onMounted, onUnmounted, ref, toRefs } from 'vue';
+import { useRoute } from 'vue-router';
 import { scroll, scrollAnchor } from '/src/utils';
 
 const MIN_HEIGHT = 68;
@@ -69,6 +74,7 @@ export default {
   },
   setup(props) {
     const { activeSection } = toRefs(props);
+    const route = useRoute();
     const headerLinks = [
       link('about', scrollAnchor),
       link('services', scrollAnchor),
@@ -77,6 +83,7 @@ export default {
     ];
     const sidebarOpened = ref(false);
     const headerHeight = ref(100);
+    const spin = ref(false);
 
     const calculateUnderline = (link) => {
       const el = document.getElementById(link.headerId);
@@ -108,6 +115,17 @@ export default {
       }
     };
 
+    const logoClick = () => {
+      if(!spin.value && route.name === 'Home') {
+        spin.value = true;
+        setTimeout(
+          () => { spin.value = false; },
+          1200,
+        );
+      }
+      scroll(0);
+    };
+
     onMounted(() => {
       window.addEventListener('scroll', onScroll, { passive: true });
     });
@@ -118,8 +136,9 @@ export default {
       headerLinks,
       sidebarOpened,
       activeLink,
-      scroll,
       headerHeight,
+      spin,
+      logoClick,
     }
   },
 };
@@ -197,6 +216,9 @@ export default {
       cursor: pointer;
       height: 60%;
     }
+    .spin {
+      animation: rotateY 1s 1 ease;
+    }
   }
   @media (max-width: 640px) {
     .header-sidebar-wrap, .sidebar-toggle {
@@ -206,5 +228,8 @@ export default {
       display: none;
     }
   }
+}
+@keyframes rotateY {
+  to { transform: rotateY(360deg); }
 }
 </style>

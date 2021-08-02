@@ -19,6 +19,7 @@
       <Node />
       <Typescript />
       <Ethereum />
+      <Nx />
     </div>
     <div class="technology-subtitle">
       {{ $t('technology.work') }}
@@ -51,7 +52,8 @@ export default {
       links: [
         { title: 'vue3-eth', link: 'https://github.com/samatechtw/vue3-eth' },
         { title: 'eth-docgen', link: 'https://github.com/samatechtw/eth-docgen' },
-        { title: 'postcss-basics', link: 'https://github.com/samatechtw/postcss-basics' },
+        { title: 'postcss-colors', link: 'https://github.com/samatechtw/postcss-colors' },
+        { title: 'nx-vue3-vite', link: 'https://github.com/samatechtw/nx-vue3-vite' },
       ],
     };
   },
@@ -98,7 +100,7 @@ export default {
     margin-top: 48px;
   }
   .technology-row {
-    margin: 32px auto 0;
+    margin: 16px auto 0;
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
@@ -107,7 +109,7 @@ export default {
   .technology-item {
     display: flex;
     align-items: center;
-    margin: 16px 24px 0;
+    margin: 32px 24px 0;
     svg {
       margin-right: 10px;
     }
