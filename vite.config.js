@@ -1,5 +1,5 @@
 import Vue from '@vitejs/plugin-vue';
-import ViteComponents from 'vite-plugin-components';
+import Components from 'unplugin-vue-components/vite'
 import ViteImages from 'vite-plugin-vue-images';
 
 module.exports = {
@@ -10,7 +10,7 @@ module.exports = {
   },
   plugins: [
     Vue(),
-    ViteComponents(),
+    Components(),
     ViteImages(),
   ],
 };
