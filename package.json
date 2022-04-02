@@ -13,25 +13,25 @@
     "lint:style": "./node_modules/stylelint/bin/stylelint.js \"**/src/**/*.{css,vue}\""
   },
   "dependencies": {
-    "@sampullman/fetch-api": "0.6.0",
-    "vue": "^3.2.26",
-    "vue-i18n": "^9.2.0-beta.25",
-    "vue-router": "^4.0.12"
+    "@sampullman/fetch-api": "0.7.0",
+    "vue": "^3.2.31",
+    "vue-i18n": "^9.2.0-beta.34",
+    "vue-router": "^4.0.14"
   },
   "devDependencies": {
-    "@intlify/eslint-plugin-vue-i18n": "^1.2.0",
+    "@intlify/eslint-plugin-vue-i18n": "^1.4.0",
     "@samatech/postcss-basics": "^0.4.2",
-    "@vitejs/plugin-vue": "^2.0.1",
-    "@vue/compiler-sfc": "^3.2.26",
-    "eslint": "^8.5.0",
-    "eslint-plugin-import": "^2.25.3",
-    "eslint-plugin-vue": "^8.2.0",
-    "postcss": "^8.4.5",
-    "stylelint": "^14.2.0",
-    "stylelint-config-standard": "^24.0.0",
+    "@vitejs/plugin-vue": "^2.3.1",
+    "@vue/compiler-sfc": "^3.2.31",
+    "eslint": "^8.12.0",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-vue": "^8.5.0",
+    "postcss": "^8.4.12",
+    "stylelint": "^14.6.1",
+    "stylelint-config-standard": "^25.0.0",
     "tslib": "^2.3.1",
-    "vite": "^2.7.6",
-    "unplugin-vue-components": "^0.17.10",
+    "vite": "^2.9.1",
+    "unplugin-vue-components": "^0.18.5",
     "vite-plugin-vue-images": "^0.6.1"
   }
 }
