@@ -1,17 +1,12 @@
 <template>
-<router-view />
+  <router-view />
 </template>
-
-<script>
-export default {
-  name: 'app',
-};
-</script>
 
 <style lang="postcss">
 @import './assets/css/global.css';
 
-html,body {
+html,
+body {
   padding: 0;
   margin: 0;
   width: 100%;
@@ -36,5 +31,4 @@ html,body {
     padding-right: 20px;
   }
 }
-
 </style>

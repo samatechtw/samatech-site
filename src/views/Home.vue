@@ -1,64 +1,55 @@
 <template>
-<div class="home-wrap">
-  <STHeader :activeSection="activeSection" />
-  <About ref="about" :selected="activeSection === 'about'" />
-  <Services ref="services" :selected="activeSection === 'services'" />
-  <Technology ref="technology" :selected="activeSection === 'technology'" />
-  <Contact ref="contact" :selected="activeSection === 'contact'" />
-  <STFooter />
-</div>
+  <div class="home-wrap">
+    <STHeader :activeSection="activeSection" />
+    <About ref="about" :selected="activeSection === 'about'" />
+    <Services ref="services" :selected="activeSection === 'services'" />
+    <Technology ref="technology" :selected="activeSection === 'technology'" />
+    <Contact ref="contact" :selected="activeSection === 'contact'" />
+    <STFooter />
+  </div>
 </template>
 
-<script>
+<script lang="ts" setup>
 import { ref, onMounted, onUnmounted } from 'vue';
-import { debounce } from '/src/utils';
+import { debounce } from '@/utils/page';
+import About from '@/components/home/About.vue';
+import Services from '@/components/home/Services.vue';
+import Technology from '@/components/home/Technology.vue';
+import Contact from '@/components/home/Contact.vue';
 
-export default {
-  setup() {
-    const activeSection = ref(null);
-    const about = ref(null);
-    const services = ref(null);
-    const technology = ref(null);
-    const contact = ref(null);
-    let sections = [contact, technology, services, about];
-    let onScrollDebounce = null;
+const activeSection = ref();
+const about = ref<InstanceType<typeof About>>();
+const services = ref<InstanceType<typeof Services>>();
+const technology = ref<InstanceType<typeof Technology>>();
+const contact = ref<InstanceType<typeof Contact>>();
+let sections = [contact, technology, services, about];
+let onScrollDebounce: () => void;
 
-    const onScroll = () => {
-      const top = window.pageYOffset;
-      const section = sections.find((section, idx) => {
-        if(
-          top > (section.value.$el.offsetTop - 350)
-          || idx === sections.length - 1
-        ) {
-          return true;
-        }
-      });
-      if(!section) {
-        activeSection.value = null;
-      } else {
-        const sid = section.value.$el.id;
-        if(sid !== activeSection.value) {
-          activeSection.value = sid;
-        }
-      }
-    };
-
-    onMounted(() => {
-      onScrollDebounce = debounce(onScroll, 100);
-      window.addEventListener('scroll', onScrollDebounce, { passive: true });
-    });
-    onUnmounted(() => {
-      window.removeEventListener('scroll', onScrollDebounce);
-    });
-    return {
-      activeSection,
-      about,
-      services,
-      technology,
-      contact,
-    };
-  },
+const onScroll = () => {
+  const top = window.pageYOffset;
+  const section = sections.find((section, idx) => {
+    const sectionTop = section.value?.$el.offsetTop ?? 0;
+    if (top > sectionTop - 350 || idx === sections.length - 1) {
+      return true;
+    }
+  });
+  if (!section) {
+    activeSection.value = undefined;
+  } else {
+    const sid = section.value?.id;
+    if (sid !== activeSection.value) {
+      activeSection.value = sid;
+    }
+  }
 };
+
+onMounted(() => {
+  onScrollDebounce = debounce(onScroll, 100);
+  window.addEventListener('scroll', onScrollDebounce, { passive: true });
+});
+onUnmounted(() => {
+  window.removeEventListener('scroll', onScrollDebounce);
+});
 </script>
 
 <style lang="postcss">
@@ -70,7 +61,7 @@ export default {
 
 .home-wrap {
   color: $light1;
-  > div  {
+  > div {
     position: relative;
     z-index: 2;
   }

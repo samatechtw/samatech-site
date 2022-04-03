@@ -1,26 +1,20 @@
 <template>
-<div class="careers-wrap">
-  <STHeader :activeSection="activeSection" />
-  <Careers />
-  <STFooter />
-</div>
+  <div class="careers-wrap">
+    <STHeader :activeSection="activeSection" />
+    <Careers />
+    <STFooter />
+  </div>
 </template>
 
-<script>
+<script lang="ts" setup>
 import { onMounted, ref } from 'vue';
 
-export default {
-  setup() {
-    const activeSection = ref(null);
-    onMounted(() => {
-      // Need to wait for render to set up underline
-      activeSection.value = 'careers';
-    });
-    return {
-      activeSection,
-    };
-  },
-};
+const activeSection = ref();
+
+onMounted(() => {
+  // Need to wait for render to set up underline
+  activeSection.value = 'careers';
+});
 </script>
 
 <style lang="postcss">

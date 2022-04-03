@@ -1,94 +1,74 @@
 <template>
-<div class="careers-wrap">
-  <div class="careers container">
-    <div class="careers-title">
-      {{ $t('careers.head') }}
-    </div>
-    <div class="careers-text">
-      {{ $t('careers.text') }}
-    </div>
-    <div class="careers-jobs">
-      <div
-        v-for="(job, index) in $tm('careers.jobs')"
-        :key="job.title"
-        class="careers-job">
-        <div class="careers-job-inner">
-          <div class="careers-job-title-wrap">
-            <PlusAnimate :open="index === selectedJob" />
-            <div
-              class="careers-job-title"
-              @click="toggleJob(index)"
-            >
-              {{ job.title }}
+  <div class="careers-wrap">
+    <div class="careers container">
+      <div class="careers-title">
+        {{ t('careers.head') }}
+      </div>
+      <div class="careers-text">
+        {{ t('careers.text') }}
+      </div>
+      <div class="careers-jobs">
+        <div
+          v-for="(job, index) in jobs"
+          :key="job.title"
+          :ref="skipUnwrap.el"
+          class="careers-job"
+        >
+          <div class="careers-job-inner">
+            <div class="careers-job-title-wrap">
+              <PlusAnimate :open="index === selectedJob" />
+              <div class="careers-job-title" @click="toggleJob(index)">
+                {{ job.title }}
+              </div>
             </div>
+            <transition name="animate-height" @enter="enter(index)" @leave="leave">
+              <CareersJobInfo
+                v-if="index === selectedJob"
+                :job="job"
+                :style="{ 'max-height': jobHeights[index], height: jobHeights[index] }"
+                class="careers-job-text"
+              />
+            </transition>
+            <CareersJobInfo :job="job" class="careers-job-pseudo-text" />
           </div>
-          <transition
-            name="animate-height"
-            @enter="enter(index)"
-            @leave="leave"
-          >
-            <CareersJobInfo
-              v-if="index === selectedJob"
-              :job="job"
-              :style="{ 'max-height': jobHeights[index], height: jobHeights[index] }"
-              class="careers-job-text"
-            />
-          </transition>
-          <CareersJobInfo
-            :job="job"
-            :ref="setJobRef"
-            class="careers-job-pseudo-text"
-          />
         </div>
       </div>
     </div>
   </div>
-</div>
 </template>
 
-<script>
-import { onBeforeUpdate, ref } from 'vue';
+<script lang="ts" setup>
+import { computed, Ref, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
+import CareersJobInfo from './CareersJobInfo.vue';
 
-export default {
-  setup() {
-    const { tm } = useI18n();
-    const selectedJob = ref(null);
-    const jobHeights = ref(tm('careers.jobs').map(_item => 0));
-    let jobRefs = [];
+const { t, tm } = useI18n();
 
-    onBeforeUpdate(() => {
-      jobRefs = [];
-    });
-    const setJobRef = (el) => {
-      if(el) {
-        jobRefs.push(el);
-      }
-    };
+// Workaround for v-for ref bug: https://github.com/vuejs/core/issues/5525
+const skipUnwrap = { el: ref<HTMLDivElement[]>([]) };
+const jobRefs = computed(() => skipUnwrap.el.value);
 
-    const toggleJob = (index) => {
-      if(selectedJob.value === index) {
-        selectedJob.value = null;
-      } else {
-        selectedJob.value = index;
-      }
-    };
-    const enter = (index) => {
-      const height = parseInt(getComputedStyle(jobRefs[index].$el).height);
-      jobHeights.value[index] = `${height + 24}px`;
-    };
-    const leave = () => {
-      jobHeights.value = tm('careers.jobs').map(_item => 0);
-    };
-    return {
-      selectedJob,
-      jobHeights,
-      setJobRef,
-      toggleJob,
-      enter,
-      leave,
-    };
-  },
+const jobs = tm('careers.jobs') as Record<string, string>[];
+
+const selectedJob = ref();
+const jobHeights = ref(jobs.map((_item) => '0'));
+
+const toggleJob = (index: number) => {
+  if (selectedJob.value === index) {
+    selectedJob.value = null;
+  } else {
+    selectedJob.value = index;
+  }
+};
+const enter = (index: number) => {
+  const job = jobRefs.value[index].querySelector('.careers-job-pseudo-text');
+  if (job) {
+    const height = parseInt(getComputedStyle(job).height);
+    jobHeights.value[index] = `${height + 24}px`;
+  }
+};
+const leave = () => {
+  jobHeights.value = jobs.map((_item) => '0');
 };
 </script>
 
@@ -155,7 +135,8 @@ export default {
         position: relative;
         width: 100%;
       }
-      .careers-job-text, .careers-job-pseudo-text {
+      .careers-job-text,
+      .careers-job-pseudo-text {
         @mixin text 15px;
         line-height: 24px;
         color: white;
@@ -170,7 +151,8 @@ export default {
         visibility: hidden;
         width: 100%;
       }
-      .animate-height-enter, .animate-height-leave-to {
+      .animate-height-enter,
+      .animate-height-leave-to {
         max-height: 0 !important;
       }
     }
@@ -178,5 +160,4 @@ export default {
   @media (max-width: 760px) {
   }
 }
-
 </style>

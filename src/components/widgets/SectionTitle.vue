@@ -1,30 +1,28 @@
 <template>
-<div class="title-wrap">
-  <div class="title-bg">
-    {{ textBg || text }}
+  <div class="title-wrap">
+    <div class="title-bg">
+      {{ textBg || text }}
+    </div>
+    <div class="section-title">
+      <span :class="{ selected }">
+        {{ text }}
+      </span>
+    </div>
   </div>
-  <div class="section-title">
-    <span :class="{ selected }">
-      {{ text }}
-    </span>
-  </div>
-</div>
 </template>
 
-<script>
-export default {
-  props: {
-    text: {
-      type: String,
-      required: true,
-    },
-    textBg: {
-      type: String,
-      default: null,
-    },
-    selected: Boolean,
+<script lang="ts" setup>
+defineProps({
+  text: {
+    type: String,
+    required: true,
   },
-};
+  textBg: {
+    type: String,
+    default: null,
+  },
+  selected: Boolean,
+});
 </script>
 
 <style lang="postcss">

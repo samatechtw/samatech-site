@@ -1,98 +1,87 @@
 <template>
-<div class="st-input-wrap">
-  <component
-    :is="rows ? 'textarea' : 'input'"
-    v-bind="commonProps"
-    :rows="rows"
-    :autocomplete="autocomplete"
-    :value.prop="modelValue"
-    @input="$emit('update:modelValue', $event.target.value)"
-    @keyup.enter="$emit('handle-enter')"
-  />
-  <label
-    v-if="title"
-    class="st-input-title"
-    :for="`input${uid}`"
-    :class="{ 'active': (placeholder || (modelValue || modelValue === 0)) }"
-  >
-    {{ title }}
-  </label>
-</div>
+  <div class="st-input-wrap">
+    <component
+      :is="rows ? 'textarea' : 'input'"
+      v-bind="commonProps"
+      :rows="rows"
+      :autocomplete="autocomplete"
+      :value.prop="modelValue"
+      @input="emit('update:modelValue', $event.target.value)"
+      @keyup.enter="emit('handle-enter')"
+    />
+    <label
+      v-if="title"
+      class="st-input-title"
+      :for="`input${uid}`"
+      :class="{ active: placeholder || modelValue || modelValue === 0 }"
+    >
+      {{ title }}
+    </label>
+  </div>
 </template>
 
-<script>
+<script lang="ts" setup>
 import { toRefs, computed } from 'vue';
-import { useUid } from '/src/utils';
+import { uidSingleton } from '@/utils/uid';
 
-export default {
-  emits: ['update:modelValue', 'handle-enter'],
-  props: {
-    modelValue: {
-      type: [Number, String],
-      default: null,
-    },
-    placeholder: {
-      type: String,
-      default: null,
-    },
-    title: {
-      type: String,
-      default: null,
-    },
-    inputType: {
-      type: String,
-      default: 'text',
-    },
-    rows: {
-      type: Number,
-      default: null,
-    },
-    autocomplete: {
-      type: String,
-      default: 'off',
-    },
-    inputClass: {
-      type: String,
-      default: null,
-    },
-    maxLength: {
-      type: Number,
-      default: undefined,
-    },
-  },
-  setup(props) {
-    const {
-      inputClass,
-      rows,
-      placeholder,
-      inputType,
-      maxLength,
-    } = toRefs(props);
-    const uid = useUid();
+const emit = defineEmits(['update:modelValue', 'handle-enter']);
 
-    const commonProps = computed(() => {
-      const props = {
-        class: {
-          'st-input': true,
-          'st-textarea': !!rows.value,
-          [inputClass.value]: inputClass.value,
-        },
-        maxlength: maxLength.value,
-        // eslint-disable-next-line
-        name: `input${uid}`,
-        placeholder: placeholder.value,
-      };
-      if(!rows) {
-        props.type = inputType.value;
-      }
-      return props;
-    });
-    return {
-      commonProps,
-      uid,
-    };
+const props = defineProps({
+  modelValue: {
+    type: [Number, String],
+    default: null,
   },
-};
+  placeholder: {
+    type: String,
+    default: null,
+  },
+  title: {
+    type: String,
+    default: null,
+  },
+  inputType: {
+    type: String,
+    default: 'text',
+  },
+  rows: {
+    type: Number,
+    default: null,
+  },
+  autocomplete: {
+    type: String,
+    default: 'off',
+  },
+  inputClass: {
+    type: String,
+    default: null,
+  },
+  maxLength: {
+    type: Number,
+    default: undefined,
+  },
+});
+
+const uid = uidSingleton.next();
+
+const { inputClass, rows, placeholder, inputType, maxLength } = toRefs(props);
+
+const commonProps = computed(() => {
+  const props: Record<string, unknown> = {
+    class: {
+      'st-input': true,
+      'st-textarea': !!rows.value,
+      [inputClass.value]: inputClass.value,
+    },
+    maxlength: maxLength?.value,
+    // eslint-disable-next-line
+    name: `input${uid}`,
+    placeholder: placeholder.value,
+  };
+  if (!rows) {
+    props.type = inputType.value;
+  }
+  return props;
+});
 </script>
 
 <style lang="postcss">
@@ -171,11 +160,11 @@ $bg: $dark1;
     }
     /* stylelint-enable */
 
-    &[type=number] {
+    &[type='number'] {
       -moz-appearance: textfield;
     }
-    &[type=number]::-webkit-inner-spin-button,
-    &[type=number]::-webkit-outer-spin-button {
+    &[type='number']::-webkit-inner-spin-button,
+    &[type='number']::-webkit-outer-spin-button {
       -webkit-appearance: none;
       margin: 0;
     }
@@ -185,5 +174,4 @@ $bg: $dark1;
     }
   }
 }
-
 </style>

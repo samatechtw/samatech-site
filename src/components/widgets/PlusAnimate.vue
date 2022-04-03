@@ -1,19 +1,14 @@
 <template>
-<div
-  class="plus-animate"
-  :class="open ? 'opened' : 'closed'"
->
-  <div class="plus-animate-horizontal" />
-  <div class="plus-animate-vertical" />
-</div>
+  <div class="plus-animate" :class="open ? 'opened' : 'closed'">
+    <div class="plus-animate-horizontal" />
+    <div class="plus-animate-vertical" />
+  </div>
 </template>
 
-<script>
-export default {
-  props: {
-    open: Boolean,
-  }
-};
+<script lang="ts" setup>
+defineProps({
+  open: Boolean,
+});
 </script>
 
 <style lang="postcss">
@@ -24,7 +19,8 @@ export default {
   position: relative;
   top: 7px;
   cursor: pointer;
-  .plus-animate-horizontal, .plus-animate-vertical {
+  .plus-animate-horizontal,
+  .plus-animate-vertical {
     position: absolute;
     background-color: $light2;
     transition: all 0.4s ease-in-out;

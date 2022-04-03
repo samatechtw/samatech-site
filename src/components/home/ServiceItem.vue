@@ -1,44 +1,39 @@
 <template>
-<div class="service-item">
-  <div class="service-item-image mobile">
-    <img :src="image" :style="{ width: imageWidth }">
-  </div>
-  <div class="service-item-text">
-    <div class="service-item-image desktop">
-      <img :src="image" :style="{ width: imageWidth }">
+  <div class="service-item">
+    <div class="service-item-image mobile">
+      <img :src="image" :style="{ width: imageWidth }" />
     </div>
-    <div class="service-item-title">
-      {{ copy.title }}
+    <div class="service-item-text">
+      <div class="service-item-image desktop">
+        <img :src="image" :style="{ width: imageWidth }" />
+      </div>
+      <div class="service-item-title">
+        {{ copy.title }}
+      </div>
+      <ul>
+        <li v-for="(item, index) in copy.items" :key="index">
+          {{ item }}
+        </li>
+      </ul>
     </div>
-    <ul>
-      <li
-        v-for="(item, index) in copy.items"
-        :key="index"
-      >
-        {{ item }}
-      </li>
-    </ul>
   </div>
-</div>
 </template>
 
-<script>
-export default {
-  props: {
-    copy: {
-      type: Object,
-      required: true,
-    },
-    image: {
-      type: String,
-      required: true,
-    },
-    imageWidth: {
-      type: String,
-      default: '60px',
-    },
+<script lang="ts" setup>
+defineProps({
+  copy: {
+    type: Object,
+    required: true,
   },
-};
+  image: {
+    type: String,
+    required: true,
+  },
+  imageWidth: {
+    type: String,
+    default: '60px',
+  },
+});
 </script>
 
 <style lang="postcss">

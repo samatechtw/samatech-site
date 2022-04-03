@@ -1,50 +1,45 @@
 <template>
-<div v-if="job" class="job-wrap">
-  <div class="job-description" v-html="job.description" />
-  <div class="job-section">
-    {{ $t('careers.responsibilities') }}
-  </div>
-  <ul class="job-requirements">
-    <li
-      v-for="(resp, index) in job.responsibilities"
-      :key="index"
-      class="job-list-item"
-    >
-      {{ resp }}
-    </li>
-  </ul>
-  <div class="job-section">
-    {{ $t('careers.requirements') }}
-  </div>
-  <ul class="job-qualifications">
-    <li
-      v-for="(req, index) in job.requirements"
-      :key="index"
-      class="job-list-item"
-    >
-      {{ req }}
-    </li>
-  </ul>
-  <a v-if="job.link" class="job-link" :href="job.link" target="_blank">
-    <div>
-      {{ $t('careers.apply') }}
+  <div v-if="job" class="job-wrap">
+    <div class="job-description" v-html="job.description" />
+    <div class="job-section">
+      {{ t('careers.responsibilities') }}
     </div>
-  </a>
-</div>
+    <ul class="job-requirements">
+      <li
+        v-for="(resp, index) in job.responsibilities"
+        :key="index"
+        class="job-list-item"
+      >
+        {{ resp }}
+      </li>
+    </ul>
+    <div class="job-section">
+      {{ t('careers.requirements') }}
+    </div>
+    <ul class="job-qualifications">
+      <li v-for="(req, index) in job.requirements" :key="index" class="job-list-item">
+        {{ req }}
+      </li>
+    </ul>
+    <a v-if="job.link" class="job-link" :href="job.link" target="_blank">
+      <div>
+        {{ t('careers.apply') }}
+      </div>
+    </a>
+  </div>
 </template>
 
-<script>
-export default {
-  props: {
-    job: {
-      type: Object,
-      default: null,
-    },
-  },
-  setup() {
+<script lang="ts" setup>
+import { useI18n } from 'vue-i18n';
 
+const { t } = useI18n();
+
+defineProps({
+  job: {
+    type: Object,
+    default: null,
   },
-};
+});
 </script>
 
 <style lang="postcss">
@@ -98,5 +93,4 @@ export default {
     }
   }
 }
-
 </style>

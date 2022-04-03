@@ -1,89 +1,68 @@
 <template>
-<div id="contact" class="contact-wrap">
-  <div class="contact container">
-    <SectionTitle :text="$t('contact.title')" :selected="selected" />
-    <div class="contact-content">
-      <div class="contact-info">
-        <div class="contact-row">
-          <img :src="Location">
-          <img :src="Email">
-          <img :src="Name">
-        </div>
-        <div class="contact-row">
-          <div class="info-text">
-            {{ $t('contact.location') }}
+  <div id="contact" class="contact-wrap">
+    <div class="contact container">
+      <SectionTitle :text="$t('contact.title')" :selected="selected" />
+      <div class="contact-content">
+        <div class="contact-info">
+          <div class="contact-row">
+            <img src="@/assets/img/location.svg" />
+            <img src="@/assets/img/email.svg" />
+            <img src="@/assets/img/name.svg" />
           </div>
-          <div class="info-text">
-            {{ $t('contact.email') }}
+          <div class="contact-row">
+            <div class="info-text">
+              {{ $t('contact.location') }}
+            </div>
+            <div class="info-text">
+              {{ $t('contact.email') }}
+            </div>
+            <div class="info-text">
+              {{ $t('contact.name') }}
+            </div>
           </div>
-          <div class="info-text">
-            {{ $t('contact.name') }}
+        </div>
+        <div class="contact-form">
+          <STInput
+            v-model="name"
+            :title="$t('contact.name_title')"
+            class="contact-name"
+          />
+          <STInput
+            v-model="email"
+            :title="$t('contact.email_title')"
+            class="contact-email"
+            inputType="email"
+          />
+          <STInput
+            v-model="message"
+            :title="$t('contact.message_title')"
+            class="contact-inquiry"
+            :rows="6"
+          />
+          <div v-if="error" class="contact-error">
+            {{ error }}
           </div>
-        </div>
-      </div>
-      <div class="contact-form">
-        <STInput
-          v-model="name"
-          :title="$t('contact.name_title')"
-          class="contact-name"
-        />
-        <STInput
-          v-model="email"
-          :title="$t('contact.email_title')"
-          class="contact-email"
-          inputType="email"
-        />
-        <STInput
-          v-model="message"
-          :title="$t('contact.message_title')"
-          class="contact-inquiry"
-          :rows="6"
-        />
-        <div v-if="error" class="contact-error">
-          {{ error }}
-        </div>
-        <div v-if="success" class="contact-success">
-          {{ success }}
-        </div>
-        <div class="contact-send" @click="send">
-          <LoadingText :text="$t('contact.send')" :loading="sending" />
+          <div v-if="success" class="contact-success">
+            {{ success }}
+          </div>
+          <div class="contact-send" @click="send">
+            <LoadingText :text="$t('contact.send')" :loading="sending" />
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 </template>
 
-<script>
+<script lang="ts" setup>
 import { useI18n } from 'vue-i18n';
-import useMail from '/src/utils/mail';
+import useMail from '@/utils/mail';
 
-export default {
-  props: {
-    selected: Boolean,
-  },
-  setup() {
-    const { t } = useI18n();
-    const {
-      name,
-      email,
-      message,
-      error,
-      success,
-      sending,
-      send,
-    } = useMail(t);
-    return {
-      name,
-      email,
-      message,
-      error,
-      success,
-      sending,
-      send,
-    };
-  },
-};
+defineProps({
+  selected: Boolean,
+});
+const { t } = useI18n();
+const { name, email, message, error, success, sending, send } = useMail();
 </script>
 
 <style lang="postcss">
@@ -123,7 +102,6 @@ export default {
     max-width: 400px;
     width: 400px;
     margin: 16px auto 0;
-
   }
   .contact-send {
     width: 100%;
@@ -150,5 +128,4 @@ export default {
     }
   }
 }
-
 </style>

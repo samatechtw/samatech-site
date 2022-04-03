@@ -1,22 +1,20 @@
 <template>
-<div id="about" class="about-wrap">
-  <div class="about-bg" />
-  <div class="about container">
-    <img :src="Company" class="about-title">
-    <div class="about-text">
-      {{ $t('about.text') }}
+  <div id="about" class="about-wrap">
+    <div class="about-bg" />
+    <div class="about container">
+      <img src="@/assets/img/company.png" class="about-title" />
+      <div class="about-text">
+        {{ $t('about.text') }}
+      </div>
     </div>
+    <div class="about-fade" />
   </div>
-  <div class="about-fade" />
-</div>
 </template>
 
-<script>
-export default {
-  props: {
-    selected: Boolean,
-  },
-};
+<script lang="ts" setup>
+defineProps<{
+  selected: boolean;
+}>();
 </script>
 
 <style lang="postcss">
@@ -65,7 +63,8 @@ export default {
     .about-bg {
       background-position: 22% 10%;
     }
-    .about-title, .about-text {
+    .about-title,
+    .about-text {
       margin-left: 0;
     }
     .about-title {
@@ -77,5 +76,4 @@ export default {
     }
   }
 }
-
 </style>

@@ -1,63 +1,63 @@
 <template>
-<div id="technology" class="technology-wrap">
-  <svg class="technology-top" viewBox="0 0 100 50" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M 0 0 L 50 0 L 0 50 Z" />
-    <path d="M 50 0 L 100 0 L 100 50 Z" />
-  </svg>
-  <div class="technology container">
-    <SectionTitle :text="$t('technology.title')" :selected="selected" />
-    <div class="technology-text">
-      {{ $t('technology.text') }}
-    </div>
-    <div class="technology-subtitle">
-      {{ $t('technology.build') }}
-    </div>
-    <div class="technology-row">
-      <Python />
-      <Vue />
-      <Postcss />
-      <Node />
-      <Typescript />
-      <Ethereum />
-      <Nx />
-    </div>
-    <div class="technology-subtitle">
-      {{ $t('technology.work') }}
-    </div>
-    <div class="technology-row">
-      <Pledgecamp />
-    </div>
-    <div class="technology-subtitle">
-      {{ $t('technology.made') }}
-    </div>
-    <div class="technology-row">
-      <Github
-        v-for="link in links"
-        :key="link.title"
-        :title="link.title"
-        :link="link.link"
-      />
+  <div id="technology" class="technology-wrap">
+    <svg
+      class="technology-top"
+      viewBox="0 0 100 50"
+      preserveAspectRatio="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path d="M 0 0 L 50 0 L 0 50 Z" />
+      <path d="M 50 0 L 100 0 L 100 50 Z" />
+    </svg>
+    <div class="technology container">
+      <SectionTitle :text="$t('technology.title')" :selected="selected" />
+      <div class="technology-text">
+        {{ $t('technology.text') }}
+      </div>
+      <div class="technology-subtitle">
+        {{ $t('technology.build') }}
+      </div>
+      <div class="technology-row">
+        <Python />
+        <Vue />
+        <Postcss />
+        <Node />
+        <Typescript />
+        <Ethereum />
+        <Nx />
+      </div>
+      <div class="technology-subtitle">
+        {{ $t('technology.work') }}
+      </div>
+      <div class="technology-row">
+        <Pledgecamp />
+      </div>
+      <div class="technology-subtitle">
+        {{ $t('technology.made') }}
+      </div>
+      <div class="technology-row">
+        <Github
+          v-for="link in links"
+          :key="link.title"
+          :title="link.title"
+          :link="link.link"
+        />
+      </div>
     </div>
   </div>
-</div>
 </template>
 
-<script>
-export default {
-  props: {
-    selected: Boolean,
-  },
-  setup() {
-    return {
-      links: [
-        { title: 'vue3-eth', link: 'https://github.com/samatechtw/vue3-eth' },
-        { title: 'eth-docgen', link: 'https://github.com/samatechtw/eth-docgen' },
-        { title: 'postcss-colors', link: 'https://github.com/samatechtw/postcss-colors' },
-        { title: 'nx-vue3-vite', link: 'https://github.com/samatechtw/nx-vue3-vite' },
-      ],
-    };
-  },
-};
+<script lang="ts" setup>
+defineProps({
+  selected: Boolean,
+});
+
+const links = [
+  { title: 'vue3-eth', link: 'https://github.com/samatechtw/vue3-eth' },
+  { title: 'eth-docgen', link: 'https://github.com/samatechtw/eth-docgen' },
+  { title: 'postcss-colors', link: 'https://github.com/samatechtw/postcss-colors' },
+  { title: 'nx-vue3-vite', link: 'https://github.com/samatechtw/nx-vue3-vite' },
+];
 </script>
 
 <style lang="postcss">
@@ -125,5 +125,4 @@ export default {
     }
   }
 }
-
 </style>

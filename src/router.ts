@@ -1,21 +1,29 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import Home from '/src/views/Home.vue';
-import CareersPage from '/src/views/CareersPage.vue';
+import Home from '@/views/Home.vue';
+import CareersPage from '@/views/CareersPage.vue';
+
+declare module 'vue-router' {
+  interface RouteMeta {
+    title?: string;
+    noScroll?: boolean;
+    scrollAnchor?: string;
+  }
+}
 
 const router = createRouter({
   history: createWebHistory(),
   scrollBehavior(to, from, savedPosition) {
-    if(to.hash) {
+    if (to.hash) {
       return new Promise((resolve, _reject) => {
         setTimeout(() => {
           resolve({ el: to.hash });
         }, 500);
       });
     }
-    if(savedPosition) {
+    if (savedPosition) {
       return savedPosition;
     }
-    if(to.meta.noScroll && from.meta.noScroll) {
+    if (to.meta.noScroll && from.meta.noScroll) {
       return {};
     }
     return { top: 0 };
@@ -37,7 +45,8 @@ const router = createRouter({
 });
 
 router.afterEach((to, _from) => {
-  const parentTitle = to.matched.some(record => record.meta.title);
+  const parent = to.matched.find((record) => record.meta.title);
+  const parentTitle = parent ? parent.meta.title : null;
   document.title = to.meta.title || parentTitle || 'SamaTech';
 });
 

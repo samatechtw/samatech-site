@@ -1,28 +1,39 @@
 <template>
-<div class="footer-wrap">
-  <svg class="footer-top" viewBox="0 0 100 50" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M 0 50 L 50 1 L 100 50 L 50 1 Z" fill="none" />
-  </svg>
-  <div class="footer container">
-    <div class="footer-left">
-      <div class="footer-image">
-        <img :src="LogoBlack">
-      </div>
-      <div class="footer-left-text">
-        <div class="footer-company">
-          {{ $t('company') }}
+  <div class="footer-wrap">
+    <svg
+      class="footer-top"
+      viewBox="0 0 100 50"
+      preserveAspectRatio="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path d="M 0 50 L 50 1 L 100 50 L 50 1 Z" fill="none" />
+    </svg>
+    <div class="footer container">
+      <div class="footer-left">
+        <div class="footer-image">
+          <img src="@/assets/img/logo_black.png" />
         </div>
-        <div class="footer-text">
-          {{ $t('footer.copyright') }}
-        </div>
-        <div class="footer-text">
-          {{ $t('footer.rights') }}
+        <div class="footer-left-text">
+          <div class="footer-company">
+            {{ t('company') }}
+          </div>
+          <div class="footer-text">
+            {{ t('footer.copyright') }}
+          </div>
+          <div class="footer-text">
+            {{ t('footer.rights') }}
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 </template>
+
+<script lang="ts" setup>
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n();
+</script>
 
 <style lang="postcss">
 @import '/src/assets/css/global.css';
@@ -72,5 +83,4 @@
     }
   }
 }
-
 </style>

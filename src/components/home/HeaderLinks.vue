@@ -1,66 +1,53 @@
 <template>
-<div class="header-links">
-  <div
-    v-for="link in links"
-    :key="link.title"
-    class="header-link"
-    :class="{ active: activeSection === link.id }"
-    @click="linkClick(link)"
-  >
-    <a
-      v-if="link.link"
-      :id="link.headerId"
-      target="_blank"
-      :href="link.link"
+  <div class="header-links">
+    <div
+      v-for="link in links"
+      :key="link.title"
+      class="header-link"
+      :class="{ active: activeSection === link.id }"
+      @click="linkClick(link)"
     >
-      {{ $t(link.title) }}
-    </a>
-    <span
-      v-else
-      :id="link.headerId"
-    >
-      {{ $t(link.title) }}
-    </span>
+      <a v-if="link.link" :id="link.headerId" target="_blank" :href="link.link">
+        {{ $t(link.title) }}
+      </a>
+      <span v-else :id="link.headerId">
+        {{ $t(link.title) }}
+      </span>
+    </div>
+    <div
+      v-if="activeLink"
+      class="header-underline"
+      :style="{
+        width: activeLink.width,
+        left: activeLink.left,
+      }"
+    />
   </div>
-  <div
-    v-if="activeLink"
-    class="header-underline"
-    :style="{
-      width: activeLink.width,
-      left: activeLink.left,
-    }"
-  />
-</div>
 </template>
 
-<script>
-export default {
-  emits: ['link-click'],
-  props: {
-    activeLink: {
-      type: Object,
-      default: null,
-    },
-    links: {
-      type: Array,
-      default: () => ([]),
-    },
-    activeSection: {
-      type: String,
-      default: null,
-    },
+<script lang="ts" setup>
+import { HeaderLink } from '../i-header-link';
+
+const emit = defineEmits(['link-click']);
+const props = defineProps({
+  activeLink: {
+    type: Object,
+    default: null,
   },
-  setup(_props, { emit }) {
-    const linkClick = (link) => {
-      if(link.fn) {
-        link.fn();
-      }
-      emit('link-click');
-    };
-    return {
-      linkClick,
-    };
+  links: {
+    type: Array,
+    default: () => [],
   },
+  activeSection: {
+    type: String,
+    default: null,
+  },
+});
+const linkClick = (link: HeaderLink) => {
+  if (link.fn) {
+    link.fn();
+  }
+  emit('link-click');
 };
 </script>
 
@@ -71,7 +58,8 @@ export default {
   margin-left: auto;
   display: flex;
   position: relative;
-  a, span {
+  a,
+  span {
     color: $blue;
     text-decoration: none;
     transition: all 0.3s ease;
@@ -105,10 +93,10 @@ export default {
     .header-link {
       font-size: 28px;
       margin-top: 16px;
-      &:not(:first-child) { margin-left: 0; }
+      &:not(:first-child) {
+        margin-left: 0;
+      }
     }
   }
 }
-
-
 </style>

@@ -1,34 +1,28 @@
 <template>
-<div class="spinner-wrap">
-  <div class="spinner" :style="spinnerStyle" />
-</div>
+  <div class="spinner-wrap">
+    <div class="spinner" :style="spinnerStyle" />
+  </div>
 </template>
 
-<script>
+<script lang="ts" setup>
 import { computed, toRefs } from 'vue';
 
-export default {
-  name: 'spinner',
-  props: {
-    size: {
-      type: Number,
-      default: 32,
-    },
-    color: {
-      type: String,
-      default: '#fff',
-    },
+const props = defineProps({
+  size: {
+    type: Number,
+    default: 32,
   },
-  setup(props) {
-    const { size } = toRefs(props);
-    return {
-      spinnerStyle: computed(() => ({
-        height: `${size}px`,
-        width: `${size}px`,
-      })),
-    };
+  color: {
+    type: String,
+    default: '#fff',
   },
-};
+});
+const { size } = toRefs(props);
+
+const spinnerStyle = computed(() => ({
+  height: `${size}px`,
+  width: `${size}px`,
+}));
 </script>
 
 <style lang="postcss">
@@ -51,11 +45,20 @@ export default {
 }
 
 @-webkit-keyframes spin {
-  0% { -webkit-transform: rotate(0deg); }
-  100% { -webkit-transform: rotate(360deg); }
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
 }
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
-</style>>
+</style>
+>

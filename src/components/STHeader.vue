@@ -1,166 +1,140 @@
 <template>
-<Sticky>
-  <div
-    class="header"
-    :style="{ height: `${headerHeight}px` }"
-  >
-    <div class="container">
-      <div class="header-left">
-        <img
-          :src="LogoBlack"
-          :class="{ spin }"
-          @click="logoClick"
+  <Sticky>
+    <div class="header" :style="{ height: `${headerHeight}px` }">
+      <div class="container">
+        <div class="header-left">
+          <img src="@/assets/img/logo_black.png" :class="{ spin }" @click="logoClick" />
+        </div>
+        <HeaderLinks
+          class="header-right"
+          :links="headerLinks"
+          :activeLink="activeLink"
+          :activeSection="activeSection"
+        />
+        <div class="sidebar-toggle" @click="sidebarOpened = true"><em /><em /><em /></div>
+        <div
+          class="header-sidebar-wrap"
+          :class="{ opened: sidebarOpened }"
+          @click="sidebarOpened = false"
         >
-      </div>
-      <HeaderLinks
-        class="header-right"
-        :links="headerLinks"
-        :activeLink="activeLink"
-        :activeSection="activeSection"
-      />
-      <div
-        class="sidebar-toggle"
-        @click="sidebarOpened = true"
-      >
-        <em /><em /><em />
-      </div>
-      <div
-        class="header-sidebar-wrap"
-        :class="{ opened: sidebarOpened }"
-        @click="sidebarOpened = false"
-      >
-        <div class="header-sidebar" @click.stop>
-          <Cross
-            class="sidebar-close sidebar-toggle"
-            :clickable="true"
-            color="black"
-            @click="sidebarOpened = false"
-          />
-          <HeaderLinks
-            class="header-links-mobile"
-            :links="headerLinks"
-            :activeLink="activeLink"
-            :activeSection="activeSection"
-            @linkClick="sidebarOpened = false"
-          />
+          <div class="header-sidebar" @click.stop>
+            <Cross
+              class="sidebar-close sidebar-toggle"
+              :clickable="true"
+              color="black"
+              @click="sidebarOpened = false"
+            />
+            <HeaderLinks
+              class="header-links-mobile"
+              :links="headerLinks"
+              :activeLink="activeLink"
+              :activeSection="activeSection"
+              @linkClick="sidebarOpened = false"
+            />
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</Sticky>
+  </Sticky>
 </template>
 
-<script>
+<script lang="ts" setup>
 import { computed, onMounted, onUnmounted, ref, toRefs } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import { scroll, scrollAnchor } from '/src/utils';
+import { scroll, scrollAnchor } from '@/utils/page';
+import { HeaderLink, HeaderLinkFn } from './i-header-link';
 
 const MIN_HEIGHT = 68;
 const MAX_HEIGHT = 100;
 
-const link = (id, fn) => ({
+const link = (id: string, fn: HeaderLinkFn): HeaderLink => ({
   id,
   headerId: `header-${id}`,
   title: `${id}.title`,
   fn: () => fn(id),
 });
 
-export default {
-  props: {
-    activeSection: {
-      type: String,
-      default: null,
-    },
+const props = defineProps({
+  activeSection: {
+    type: String,
+    default: null,
   },
-  setup(props) {
-    const { activeSection } = toRefs(props);
-    const route = useRoute();
-    const router = useRouter();
+});
 
-    const homeLink = (id) => {
-      const scrollOrGo = (id) => {
-        if(route.name === 'Home') {
-          scrollAnchor(id);
-        } else {
-          router.push({ name: 'Home', hash: `#${id}` });
-        }
-      };
-      return link(id, scrollOrGo);
-    };
-    const headerLinks = [
-      homeLink('services'),
-      homeLink('technology'),
-      homeLink('contact'),
-      link('careers', () => router.push({ name: 'Careers' })),
-    ];
-    const sidebarOpened = ref(false);
-    const headerHeight = ref(100);
-    const spin = ref(false);
+const { activeSection } = toRefs(props);
+const route = useRoute();
+const router = useRouter();
 
-    const calculateUnderline = (link) => {
-      const el = document.getElementById(link.headerId);
-      if(el) {
-        const size = el.getBoundingClientRect();
-        return {
-          ...link,
-          width: `${size.width}px`,
-          left: `${el.offsetLeft}px`,
-        };
-      }
-      return null;
-    };
-
-    const activeLink = computed(() => {
-      let link = headerLinks.find(link => link.id === activeSection.value);
-      if(link) {
-        link = calculateUnderline(link);
-      }
-      return link;
-    });
-
-    const onScroll = () => {
-      const top = window.pageYOffset;
-      // let h = Math.max(top - 200, 0);
-      const h = Math.min(
-        MAX_HEIGHT,
-        Math.max(MIN_HEIGHT, MAX_HEIGHT - ((top - 200) / 5))
-      );
-      if(h !== headerHeight.value) {
-        headerHeight.value = h;
-      }
-    };
-
-    const logoClick = () => {
-      if(route.name !== 'Home') {
-        router.push({ name: 'Home' });
-      } else {
-        if(!spin.value) {
-          spin.value = true;
-          setTimeout(
-            () => { spin.value = false; },
-            1200,
-          );
-        }
-        scroll(0);
-      }
-    };
-
-    onMounted(() => {
-      window.addEventListener('scroll', onScroll, { passive: true });
-    });
-    onUnmounted(() => {
-      window.removeEventListener('scroll', onScroll);
-    });
-    return {
-      headerLinks,
-      sidebarOpened,
-      activeLink,
-      headerHeight,
-      spin,
-      logoClick,
+const homeLink = (id: string) => {
+  const scrollOrGo = (id: string) => {
+    if (route.name === 'Home') {
+      scrollAnchor(id);
+    } else {
+      router.push({ name: 'Home', hash: `#${id}` });
     }
-  },
+  };
+  return link(id, scrollOrGo);
 };
+const headerLinks = [
+  homeLink('services'),
+  homeLink('technology'),
+  homeLink('contact'),
+  link('careers', () => router.push({ name: 'Careers' })),
+];
+const sidebarOpened = ref(false);
+const headerHeight = ref(100);
+const spin = ref(false);
+
+const calculateUnderline = (link: HeaderLink): HeaderLink | undefined => {
+  const el = document.getElementById(link.headerId);
+  if (el) {
+    const size = el.getBoundingClientRect();
+    return {
+      ...link,
+      width: `${size.width}px`,
+      left: `${el.offsetLeft}px`,
+    };
+  }
+  return undefined;
+};
+
+const activeLink = computed(() => {
+  let link = headerLinks.find((link) => link.id === activeSection.value);
+  if (link) {
+    link = calculateUnderline(link);
+  }
+  return link;
+});
+
+const onScroll = () => {
+  const top = window.pageYOffset;
+  // let h = Math.max(top - 200, 0);
+  const h = Math.min(MAX_HEIGHT, Math.max(MIN_HEIGHT, MAX_HEIGHT - (top - 200) / 5));
+  if (h !== headerHeight.value) {
+    headerHeight.value = h;
+  }
+};
+
+const logoClick = () => {
+  if (route.name !== 'Home') {
+    router.push({ name: 'Home' });
+  } else {
+    if (!spin.value) {
+      spin.value = true;
+      setTimeout(() => {
+        spin.value = false;
+      }, 1200);
+    }
+    scroll(0);
+  }
+};
+
+onMounted(() => {
+  window.addEventListener('scroll', onScroll, { passive: true });
+});
+onUnmounted(() => {
+  window.removeEventListener('scroll', onScroll);
+});
 </script>
 
 <style lang="postcss">
@@ -240,7 +214,8 @@ export default {
     }
   }
   @media (max-width: 640px) {
-    .header-sidebar-wrap, .sidebar-toggle {
+    .header-sidebar-wrap,
+    .sidebar-toggle {
       display: block;
     }
     .header-right {
@@ -249,6 +224,8 @@ export default {
   }
 }
 @keyframes rotateY {
-  to { transform: rotateY(360deg); }
+  to {
+    transform: rotateY(360deg);
+  }
 }
 </style>
