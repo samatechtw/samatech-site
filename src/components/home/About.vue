@@ -4,13 +4,17 @@
     <div class="about container">
       <img src="@/assets/img/company.png" class="about-title" />
       <div class="about-text">
-        {{ $t('about.text') }}
+        {{ t('about.text') }}
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n();
+
 defineProps<{
   selected: boolean;
 }>();

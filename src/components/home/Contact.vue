@@ -1,7 +1,7 @@
 <template>
   <div id="contact" class="contact-wrap">
     <div class="contact container">
-      <SectionTitle :text="$t('contact.title')" :selected="selected" />
+      <SectionTitle :text="t('contact.title')" :selected="selected" />
       <div class="contact-content">
         <div class="contact-info">
           <div class="contact-row">
@@ -11,31 +11,27 @@
           </div>
           <div class="contact-row">
             <div class="info-text">
-              {{ $t('contact.location') }}
+              {{ t('contact.location') }}
             </div>
             <div class="info-text">
-              {{ $t('contact.email') }}
+              {{ t('contact.email') }}
             </div>
             <div class="info-text">
-              {{ $t('contact.name') }}
+              {{ t('contact.name') }}
             </div>
           </div>
         </div>
         <div class="contact-form">
-          <STInput
-            v-model="name"
-            :title="$t('contact.name_title')"
-            class="contact-name"
-          />
+          <STInput v-model="name" :title="t('contact.name_title')" class="contact-name" />
           <STInput
             v-model="email"
-            :title="$t('contact.email_title')"
+            :title="t('contact.email_title')"
             class="contact-email"
             inputType="email"
           />
           <STInput
             v-model="message"
-            :title="$t('contact.message_title')"
+            :title="t('contact.message_title')"
             class="contact-inquiry"
             :rows="6"
           />
@@ -46,7 +42,7 @@
             {{ success }}
           </div>
           <div class="contact-send" @click="send">
-            <LoadingText :text="$t('contact.send')" :loading="sending" />
+            <LoadingText :text="t('contact.send')" :loading="sending" />
           </div>
         </div>
       </div>
@@ -58,10 +54,11 @@
 import { useI18n } from 'vue-i18n';
 import useMail from '@/utils/mail';
 
+const { t } = useI18n();
+
 defineProps({
   selected: Boolean,
 });
-const { t } = useI18n();
 const { name, email, message, error, success, sending, send } = useMail();
 </script>
 

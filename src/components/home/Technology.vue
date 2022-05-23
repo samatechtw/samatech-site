@@ -10,12 +10,12 @@
       <path d="M 50 0 L 100 0 L 100 50 Z" />
     </svg>
     <div class="technology container">
-      <SectionTitle :text="$t('technology.title')" :selected="selected" />
+      <SectionTitle :text="t('technology.title')" :selected="selected" />
       <div class="technology-text">
-        {{ $t('technology.text') }}
+        {{ t('technology.text') }}
       </div>
       <div class="technology-subtitle">
-        {{ $t('technology.build') }}
+        {{ t('technology.build') }}
       </div>
       <div class="technology-row">
         <Python />
@@ -27,13 +27,13 @@
         <Nx />
       </div>
       <div class="technology-subtitle">
-        {{ $t('technology.work') }}
+        {{ t('technology.work') }}
       </div>
       <div class="technology-row">
         <Pledgecamp />
       </div>
       <div class="technology-subtitle">
-        {{ $t('technology.made') }}
+        {{ t('technology.made') }}
       </div>
       <div class="technology-row">
         <Github
@@ -48,6 +48,10 @@
 </template>
 
 <script lang="ts" setup>
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n();
+
 defineProps({
   selected: Boolean,
 });

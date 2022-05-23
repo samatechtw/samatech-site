@@ -8,10 +8,10 @@
       @click="linkClick(link)"
     >
       <a v-if="link.link" :id="link.headerId" target="_blank" :href="link.link">
-        {{ $t(link.title) }}
+        {{ t(link.title) }}
       </a>
       <span v-else :id="link.headerId">
-        {{ $t(link.title) }}
+        {{ t(link.title) }}
       </span>
     </div>
     <div
@@ -26,10 +26,13 @@
 </template>
 
 <script lang="ts" setup>
+import { useI18n } from 'vue-i18n';
 import { HeaderLink } from '../i-header-link';
 
+const { t } = useI18n();
+
 const emit = defineEmits(['link-click']);
-const props = defineProps({
+defineProps({
   activeLink: {
     type: Object,
     default: null,
