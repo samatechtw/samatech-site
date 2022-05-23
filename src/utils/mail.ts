@@ -18,7 +18,7 @@ const api = new FetchApi({
 
 const sendEmail = (name: string, email: string, message: string) =>
   api.request({
-    url: 'http://api.frontrow.foundation/mail/samatech',
+    url: 'https://api.frontrow.foundation/mail/samatech',
     method: 'POST',
     data: {
       name,
