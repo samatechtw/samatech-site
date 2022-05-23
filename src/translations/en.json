@@ -4,6 +4,11 @@
     "title": "About",
     "text": "Taiwan based design and software consulting with an emphasis on open source"
   },
+  "who": {
+    "title": "Who We Are",
+    "text1": "SamaTech offers software solutions, not just services.",
+    "text2": "We're a design and software consulting firm in Taipei that provides full-stack solutions for web and blockchain - developed efficiently by our expert designers and engineers with decades of experience in the industry."
+  },
   "services": {
     "title": "Services",
     "web": {
@@ -25,11 +30,7 @@
     },
     "firmware": {
       "title": "Firmware",
-      "items": [
-        "IoT Product Development",
-        "Bluetooth LE",
-        "Low Power Devices"
-      ]
+      "items": ["IoT Product Development", "Bluetooth LE", "Low Power Devices"]
     }
   },
   "technology": {
@@ -57,7 +58,7 @@
     "invalid_email": "The email address is invalid",
     "invalid_name": "The name must be between 2 and 100 characters.",
     "invalid_message": "The message must be between 10 and 1000 characters.",
-    "email_error": "Error sending mail, try again later or email info{'@'}tpa.finance",
+    "email_error": "Error sending mail, try again later or email contact{'@'}samatech.tw",
     "email_success": "Message sent successfully",
     "email_limit": "Message rate limit exceeded, try again in a few minutes."
   },

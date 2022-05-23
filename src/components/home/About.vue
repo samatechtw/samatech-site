@@ -7,7 +7,6 @@
         {{ $t('about.text') }}
       </div>
     </div>
-    <div class="about-fade" />
   </div>
 </template>
 
@@ -20,9 +19,12 @@ defineProps<{
 <style lang="postcss">
 @import '/src/assets/css/global.css';
 
-.about-wrap {
+.home-wrap > .about-wrap {
   background-color: $dark1;
   min-height: 840px;
+  position: fixed;
+  top: 0;
+  width: 100%;
   .about-bg {
     width: 100%;
     height: 100%;
@@ -31,13 +33,6 @@ defineProps<{
     background-image: url(/src/assets/img/taipei.jpg);
     background-size: cover;
     background-position: 0% center;
-  }
-  .about-fade {
-    width: 100%;
-    bottom: 0;
-    height: 160px;
-    position: absolute;
-    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), $dark1);
   }
   .about {
     position: relative;
@@ -49,8 +44,8 @@ defineProps<{
     margin-left: 50%;
   }
   .about-text {
-    margin-left: 50%;
     @mixin medium 17px;
+    margin-left: 50%;
     margin-top: 24px;
     color: $light2;
     max-width: 380px;

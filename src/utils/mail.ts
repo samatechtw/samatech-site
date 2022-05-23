@@ -12,37 +12,18 @@ const jsonInterceptor = async (res: Response): Promise<ApiResponse> => {
   return res;
 };
 
-class MailApi extends FetchApi<ApiResponse> {
-  override async request(config: FetchRequestConfig): Promise<ApiResponse> {
-    return super.request(config);
-  }
-}
-
 const api = new FetchApi({
   responseInterceptors: [jsonInterceptor],
 });
 
 const sendEmail = (name: string, email: string, message: string) =>
   api.request({
-    url: 'https://api.sendinblue.com/v3/smtp/email',
+    url: 'http://api.frontrow.foundation/mail/samatech',
     method: 'POST',
-    headers: {
-      charset: 'iso-8859-1',
-      'api-key':
-        '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',
-    },
     data: {
-      sender: { name, email },
-      to: [
-        {
-          name: 'SamaTech',
-          email: 'contact@samatech.tw',
-        },
-      ],
-      subject: 'SamaTech Web Form',
-      htmlContent:
-        '<html><head></head><body>' +
-        `<h4>From: ${email}</h4><h4>Name: ${name}</h4><h4>Message:</h4><p>${message}</p></body></html>`,
+      name,
+      email,
+      inquiry: message,
     },
   });
 

@@ -2,6 +2,7 @@
   <div class="home-wrap">
     <STHeader :activeSection="activeSection" />
     <About ref="about" :selected="activeSection === 'about'" />
+    <WhoWeAre ref="who" :selected="activeSection === 'who'" />
     <Services ref="services" :selected="activeSection === 'services'" />
     <Technology ref="technology" :selected="activeSection === 'technology'" />
     <Contact ref="contact" :selected="activeSection === 'contact'" />
@@ -13,12 +14,14 @@
 import { ref, onMounted, onUnmounted } from 'vue';
 import { debounce } from '@/utils/page';
 import About from '@/components/home/About.vue';
+import WhoWeAre from '@/components/home/WhoWeAre.vue';
 import Services from '@/components/home/Services.vue';
 import Technology from '@/components/home/Technology.vue';
 import Contact from '@/components/home/Contact.vue';
 
 const activeSection = ref();
 const about = ref<InstanceType<typeof About>>();
+const who = ref<InstanceType<typeof WhoWeAre>>();
 const services = ref<InstanceType<typeof Services>>();
 const technology = ref<InstanceType<typeof Technology>>();
 const contact = ref<InstanceType<typeof Contact>>();
